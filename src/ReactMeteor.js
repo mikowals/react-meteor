@@ -23,7 +23,12 @@ var ReactMeteorMixin = {
       enqueueMeteorStateUpdate(self);
     }
   },
-
+  componentWillReceiveProps: function(nextProps) {
+    // always trigger change event for new props
+    if (this._meteorStateDep) {
+      this._meteorStateDep.changed();
+    }
+  },
   componentWillUpdate: function(nextProps, nextState) {
     if (this._meteorCalledSetState) {
       // If this component update was triggered by the ReactMeteor.Mixin,
